@@ -6,20 +6,32 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.joml.Matrix3x2fStack;
 
 import static me.sailex.blockybird.client.BlockyBirdClient.MOD_ID;
 
 public class BlockyBirdScreen extends Screen {
 
     private static final Identifier BIRD_UPFLAP = Identifier.of(MOD_ID, "yellowbird-upflap.png");
-    private static final Identifier BACKGROUND_DAY = Identifier.of(MOD_ID, "background_day.png");
-    private static final Identifier BACKGROUND_NIGHT = Identifier.of(MOD_ID, "background_night.png");
+    private static final Identifier BIRD_MIDFLAP = Identifier.of(MOD_ID, "yellowbird-midflap.png");
+    private static final Identifier BIRD_DOWNFLAP = Identifier.of(MOD_ID, "yellowbird-downflap.png");
 
-    private static final int JUMP_SPEED = 1;
-    private static final int FALLING_CONSTANT = 2;
+    private static final Identifier BACKGROUND_DAY = Identifier.of(MOD_ID, "background-day.png");
+    private static final Identifier BACKGROUND_NIGHT = Identifier.of(MOD_ID, "background-night.png");
 
-    private int verticalSpeed = 0;
-    private int positionYBird = this.height / 2;
+    private static final float JUMP_SPEED = 2.7f;
+    private static final float FALLING_CONSTANT = 0.11f;
+    private static final int BIRD_ANIMATION_SPEED = 5;
+    private static final int BIRD_TOP_ROTATION = -45;
+    private static final int BIRD_BOTTOM_ROTATION = 90;
+
+    private float verticalSpeed = 0f;
+    private float birdPositionY = (float) this.height / 2;
+    private int birdAnimationIndex = 0;
+
+    private long tickCounter = 0;
+
+    private final Identifier[] birdTypes = { BIRD_UPFLAP, BIRD_MIDFLAP, BIRD_DOWNFLAP };
 
     public BlockyBirdScreen() {
         super(Text.of("BlockyBird"));
@@ -34,10 +46,40 @@ public class BlockyBirdScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
 
-        positionYBird += verticalSpeed;
+        drawBird(context);
+
+        tickCounter++;
+    }
+
+    private void drawBird(DrawContext context) {
+        birdPositionY -= verticalSpeed;
         verticalSpeed -= FALLING_CONSTANT;
 
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, BIRD_UPFLAP, (this.width - 288) / 2, positionYBird, 0, 0, 34, 24, 34, 24);
+
+        if (verticalSpeed > -1) {
+            if (tickCounter % BIRD_ANIMATION_SPEED == 0) {
+                birdAnimationIndex++;
+                if (birdAnimationIndex == birdTypes.length) {
+                    birdAnimationIndex = 0;
+                }
+            }
+        } else {
+            birdAnimationIndex = 1;
+        }
+
+        Matrix3x2fStack matrices = context.getMatrices();
+        matrices.pushMatrix();
+
+        //matrices.rotate(Math.min(BIRD_TOP_ROTATION, Math.max(verticalSpeed, BIRD_BOTTOM_ROTATION)));
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, birdTypes[birdAnimationIndex],
+                (this.width - 17) / 2, (int) birdPositionY,
+                0, 0,
+                34, 24,
+                34, 24
+        );
+
+        matrices.popMatrix();
     }
 
     public boolean mouseClicked(Click click, boolean doubled) {
@@ -47,8 +89,7 @@ public class BlockyBirdScreen extends Screen {
 
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        System.out.println(deltaTicks);
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_DAY, (this.width - 288) / 2, 0, 0, 0, 288, 500, 288, 500);
+        //context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_DAY, (this.width - 142) / 2, 0, 0, 0, 142, 250, 288, 500);
     }
 
 }
