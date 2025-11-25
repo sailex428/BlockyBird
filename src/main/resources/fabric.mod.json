@@ -1,20 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "flappy-bird",
+  "id": "blocky-bird",
   "version": "${version}",
-  "name": "flappy-bird",
-  "description": "A Minecraft Player thats controlled by a LLM.",
-  "authors": [],
+  "name": "blocky-bird",
+  "description": "Flappy Bird, recreated in Minecraft as a GUI mini-game.",
+  "authors": [
+    "sailex"
+  ],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/flappy-bird/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.sailex.flappyBird.client.FlappyBirdClient"
+      "io.sailex.blockybird.client.BlockyBirdClient"
     ],
     "main": [
-      "io.sailex.flappyBird.FlappyBird"
+      "io.sailex.blockybird.BlockyBird"
     ]
   },
   "depends": {
