@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "flappy-bird",
+  "version": "${version}",
+  "name": "flappy-bird",
+  "description": "A Minecraft Player thats controlled by a LLM.",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/flappy-bird/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.sailex.flappyBird.client.FlappyBirdClient"
+    ],
+    "main": [
+      "io.sailex.flappyBird.FlappyBird"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
