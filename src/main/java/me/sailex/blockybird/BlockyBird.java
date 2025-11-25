@@ -1,4 +1,4 @@
-package io.sailex.blockybird;
+package me.sailex.blockybird;
 
 import net.fabricmc.api.ModInitializer;
 

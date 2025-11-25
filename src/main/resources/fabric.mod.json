@@ -12,10 +12,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.sailex.blockybird.client.BlockyBirdClient"
+      "me.sailex.blockybird.client.BlockyBirdClient"
     ],
     "main": [
-      "io.sailex.blockybird.BlockyBird"
+      "me.sailex.blockybird.BlockyBird"
     ]
   },
   "depends": {
