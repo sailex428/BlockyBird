@@ -15,7 +15,8 @@ public class BirdDrawable implements Drawable {
     private static final Identifier BIRD_UPFLAP = Identifier.of(MOD_ID, "yellowbird-upflap.png");
     private static final Identifier BIRD_MIDFLAP = Identifier.of(MOD_ID, "yellowbird-midflap.png");
     private static final Identifier BIRD_DOWNFLAP = Identifier.of(MOD_ID, "yellowbird-downflap.png");
-    public static final int BIRD_TEXTURE_HEIGHT = 20;
+    public static final int BIRD_TEXTURE_HEIGHT = 24;
+    public static final int BIRD_TEXTURE_WIDTH = 34;
 
     private static final float JUMP_SPEED = 3f;
     private static final float FALLING_CONSTANT = 0.20f;
@@ -24,6 +25,7 @@ public class BirdDrawable implements Drawable {
     private static final float BIRD_BOTTOM_ROTATION = (float) Math.toRadians(90);
 
     private float birdPositionY;
+    private final float birdPositionX;
     private float verticalSpeed = 0f;
     private int birdAnimationIndex = 0;
 
@@ -34,6 +36,7 @@ public class BirdDrawable implements Drawable {
     public BirdDrawable(int width, int height) {
         this.screenWidth = width;
         this.birdPositionY = (float) height / 2;
+        this.birdPositionX = (float) (this.screenWidth - BIRD_TEXTURE_WIDTH) / 2;
     }
 
     @Override
@@ -54,18 +57,17 @@ public class BirdDrawable implements Drawable {
 
         Matrix3x2fStack matrices = context.getMatrices();
         matrices.pushMatrix();
-
-        matrices.translate((float) (this.screenWidth - 17) / 2, birdPositionY);
+        matrices.translate(birdPositionX, birdPositionY);
 
         float angle = Math.min(BIRD_BOTTOM_ROTATION, Math.max(-verticalSpeed - 2, BIRD_TOP_ROTATION));
         matrices.rotate(angle);
-        matrices.translate(-17, -12);
+        matrices.translate(-((float) BIRD_TEXTURE_WIDTH / 2), -((float) BIRD_TEXTURE_HEIGHT / 2));
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, birdTypes[birdAnimationIndex],
                 0, 0,
                 0, 0,
-                34, 24,
-                34, 24
+                BIRD_TEXTURE_WIDTH, BIRD_TEXTURE_HEIGHT,
+                BIRD_TEXTURE_WIDTH, BIRD_TEXTURE_HEIGHT
         );
         matrices.popMatrix();
 
@@ -79,5 +81,9 @@ public class BirdDrawable implements Drawable {
 
     public float getPositionY() {
         return this.birdPositionY;
+    }
+
+    public float getPositionX() {
+        return birdPositionX;
     }
 }

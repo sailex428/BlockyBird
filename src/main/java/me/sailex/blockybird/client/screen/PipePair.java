@@ -1,0 +1,51 @@
+package me.sailex.blockybird.client.screen;
+
+import me.sailex.blockybird.client.screen.drawable.PipeDrawable;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.math.Direction;
+
+import java.util.Random;
+
+public class PipePair {
+
+    private static final int PIPE_GAP = 70;
+    private final PipeDrawable pipeDrawableDown;
+    private final PipeDrawable pipeDrawableUp;
+    private final int screenHeight;
+    private final int verticalGap;
+
+    private int x = 0;
+
+    public PipePair(int screenHeight) {
+        this.screenHeight = screenHeight;
+        this.verticalGap = screenHeight / 7 + 20;
+        int randomY = getRandomYPosition();
+        this.pipeDrawableDown = new PipeDrawable(Direction.DOWN, randomY - PipeDrawable.TEXTURE_HEIGHT - PIPE_GAP / 2);
+        this.pipeDrawableUp = new PipeDrawable(Direction.UP, randomY + PIPE_GAP / 2);
+    }
+
+    public void render(DrawContext context) {
+        this.pipeDrawableDown.render(context);
+        this.pipeDrawableUp.render(context);
+    }
+
+    public void updatePosition(int x) {
+        this.x = x;
+        this.pipeDrawableDown.setX(x);
+        this.pipeDrawableUp.setX(x);
+    }
+
+    private int getRandomYPosition() {
+        Random random = new Random();
+        return random.nextInt(verticalGap, this.screenHeight - verticalGap);
+    }
+
+    public boolean isOver(float x1, float y1, float x2, float y2) {
+        return pipeDrawableDown.isOver(x1, y1, x2, y2) || pipeDrawableUp.isOver(x1, y1, x2, y2);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+}
