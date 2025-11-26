@@ -19,11 +19,11 @@ public class BlockyBirdScreen extends Screen {
     private static final Identifier BACKGROUND_DAY = Identifier.of(MOD_ID, "background-day.png");
     private static final Identifier BACKGROUND_NIGHT = Identifier.of(MOD_ID, "background-night.png");
 
-    private static final float JUMP_SPEED = 2.7f;
-    private static final float FALLING_CONSTANT = 0.11f;
+    private static final float JUMP_SPEED = 3f;
+    private static final float FALLING_CONSTANT = 0.20f;
     private static final int BIRD_ANIMATION_SPEED = 5;
-    private static final int BIRD_TOP_ROTATION = -45;
-    private static final int BIRD_BOTTOM_ROTATION = 90;
+    private static final float BIRD_TOP_ROTATION = (float) Math.toRadians(-25);
+    private static final float BIRD_BOTTOM_ROTATION = (float) Math.toRadians(90);
 
     private float verticalSpeed = 0f;
     private float birdPositionY = (float) this.height / 2;
@@ -55,7 +55,6 @@ public class BlockyBirdScreen extends Screen {
         birdPositionY -= verticalSpeed;
         verticalSpeed -= FALLING_CONSTANT;
 
-
         if (verticalSpeed > -1) {
             if (tickCounter % BIRD_ANIMATION_SPEED == 0) {
                 birdAnimationIndex++;
@@ -70,15 +69,18 @@ public class BlockyBirdScreen extends Screen {
         Matrix3x2fStack matrices = context.getMatrices();
         matrices.pushMatrix();
 
-        //matrices.rotate(Math.min(BIRD_TOP_ROTATION, Math.max(verticalSpeed, BIRD_BOTTOM_ROTATION)));
+        matrices.translate((float) (this.width - 17) / 2, birdPositionY);
+
+        float angle = Math.min(BIRD_BOTTOM_ROTATION, Math.max(-verticalSpeed - 2, BIRD_TOP_ROTATION));
+        matrices.rotate(angle);
+        matrices.translate(-17, -12);
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, birdTypes[birdAnimationIndex],
-                (this.width - 17) / 2, (int) birdPositionY,
+                0, 0,
                 0, 0,
                 34, 24,
                 34, 24
         );
-
         matrices.popMatrix();
     }
 
@@ -89,7 +91,13 @@ public class BlockyBirdScreen extends Screen {
 
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        //context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_DAY, (this.width - 142) / 2, 0, 0, 0, 142, 250, 288, 500);
+        super.renderBackground(context, mouseX, mouseY, deltaTicks);
+//        context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_DAY,
+//                (this.width - 142) / 2,
+//                0, 0, 0,
+//                142, 250,
+//                288, 500
+//        );
     }
 
 }
