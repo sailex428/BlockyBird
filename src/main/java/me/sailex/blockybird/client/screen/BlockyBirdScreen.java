@@ -1,13 +1,11 @@
 package me.sailex.blockybird.client.screen;
 
 import me.sailex.blockybird.client.screen.drawable.BirdDrawable;
-import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.joml.Matrix3x2fStack;
 
 import static me.sailex.blockybird.client.BlockyBirdClient.MOD_ID;
 
@@ -33,6 +31,14 @@ public class BlockyBirdScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
 
         bird.render(context, mouseX, mouseY, delta);
+
+        checkGameOver();
+    }
+
+    private void checkGameOver() {
+        if (bird.getPositionY() + BirdDrawable.BIRD_TEXTURE_HEIGHT > this.height || bird.getPositionY() < 0) {
+            this.client.setScreen(null);
+        }
     }
 
     public boolean mouseClicked(Click click, boolean doubled) {

@@ -15,7 +15,7 @@ public class BirdDrawable implements Drawable {
     private static final Identifier BIRD_UPFLAP = Identifier.of(MOD_ID, "yellowbird-upflap.png");
     private static final Identifier BIRD_MIDFLAP = Identifier.of(MOD_ID, "yellowbird-midflap.png");
     private static final Identifier BIRD_DOWNFLAP = Identifier.of(MOD_ID, "yellowbird-downflap.png");
-    private static final int BIRD_TEXTURE_HEIGHT = 12;
+    public static final int BIRD_TEXTURE_HEIGHT = 20;
 
     private static final float JUMP_SPEED = 3f;
     private static final float FALLING_CONSTANT = 0.20f;
@@ -59,7 +59,7 @@ public class BirdDrawable implements Drawable {
 
         float angle = Math.min(BIRD_BOTTOM_ROTATION, Math.max(-verticalSpeed - 2, BIRD_TOP_ROTATION));
         matrices.rotate(angle);
-        matrices.translate(-17, -BIRD_TEXTURE_HEIGHT);
+        matrices.translate(-17, -12);
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, birdTypes[birdAnimationIndex],
                 0, 0,
