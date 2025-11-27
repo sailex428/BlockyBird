@@ -9,6 +9,7 @@
   ],
   "contact": {},
   "license": "All-Rights-Reserved",
+  "icon": "assets/blocky-bird/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
