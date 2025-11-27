@@ -7,6 +7,7 @@ import me.sailex.blockybird.client.screen.drawable.PointsDrawable;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 
 public class BlockyBirdScreen extends Screen {
@@ -81,8 +82,19 @@ public class BlockyBirdScreen extends Screen {
         return next;
     }
 
+    @Override
     public boolean mouseClicked(Click click, boolean doubled) {
         return bird.mouseClicked();
+    }
+
+    @Override
+    public boolean keyPressed(KeyInput input) {
+        super.keyPressed(input);
+        if (input.isEnterOrSpace()) {
+            bird.mouseClicked();
+            return true;
+        }
+        return false;
     }
 
     @Override
