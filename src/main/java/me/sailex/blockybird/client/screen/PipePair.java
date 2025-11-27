@@ -5,20 +5,24 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.Direction;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PipePair {
 
+    private static AtomicInteger count = new AtomicInteger(0);
     private static final int PIPE_GAP = 70;
     private final PipeDrawable pipeDrawableDown;
     private final PipeDrawable pipeDrawableUp;
     private final int screenHeight;
     private final int verticalGap;
+    private final int id;
 
     private int x = 0;
 
     public PipePair(int screenHeight) {
         this.screenHeight = screenHeight;
         this.verticalGap = screenHeight / 7 + 20;
+        this.id = count.incrementAndGet();
         int randomY = getRandomYPosition();
         this.pipeDrawableDown = new PipeDrawable(Direction.DOWN, randomY - PipeDrawable.TEXTURE_HEIGHT - PIPE_GAP / 2);
         this.pipeDrawableUp = new PipeDrawable(Direction.UP, randomY + PIPE_GAP / 2);
@@ -46,6 +50,14 @@ public class PipePair {
 
     public int getX() {
         return x;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public static void resetCount() {
+        count = new AtomicInteger(0);
     }
 
 }
