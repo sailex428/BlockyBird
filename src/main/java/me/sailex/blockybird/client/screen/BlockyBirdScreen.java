@@ -49,9 +49,10 @@ public class BlockyBirdScreen extends Screen {
     private boolean isBirdTouchingPipe() {
         return this.pipePairs.getPipePairs().stream().anyMatch(pipePair -> pipePair.isOver(
                 bird.getPositionX(),
-                bird.getPositionX() + BirdDrawable.BIRD_TEXTURE_WIDTH,
-                bird.getPositionY(),
-                bird.getPositionY() + BirdDrawable.BIRD_TEXTURE_HEIGHT)
+                bird.getPositionX() + (float) BirdDrawable.BIRD_TEXTURE_WIDTH / 2,
+                bird.getPositionY() - 10,
+                bird.getPositionY() + (float) BirdDrawable.BIRD_TEXTURE_HEIGHT / 2
+                )
         );
     }
 
