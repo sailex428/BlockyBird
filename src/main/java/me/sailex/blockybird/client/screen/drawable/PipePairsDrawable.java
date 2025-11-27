@@ -39,14 +39,16 @@ public class PipePairsDrawable implements Drawable {
 
         PipePair last = pipePairs.peekLast();
         while (pipePairs.isEmpty() || last.getX() <= screenWidth) {
-            last = new PipePair(screenHeight);
-
             int x;
+            int lastRandomYPosition;
             if (pipePairs.isEmpty()) {
                 x = startX;
+                lastRandomYPosition = screenHeight / 2;
             } else {
                 x = pipePairs.peekFirst().getX();
+                lastRandomYPosition = last.getRandomYPosition();
             }
+            last = new PipePair(screenHeight, lastRandomYPosition);
             last.updatePosition(x + pipePairs.size() * (PIPE_HORIZONTAL_GAP + PipeDrawable.TEXTURE_WIDTH));
             pipePairs.add(last);
         }

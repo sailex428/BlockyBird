@@ -11,19 +11,23 @@ public class PipePair {
 
     private static AtomicInteger count = new AtomicInteger(0);
     private static final int PIPE_GAP = 70;
+
     private final PipeDrawable pipeDrawableDown;
     private final PipeDrawable pipeDrawableUp;
     private final int screenHeight;
     private final int verticalGap;
     private final int id;
+    private final int randomY;
+    private final int maxRandomYOffset;
 
     private int x = 0;
 
-    public PipePair(int screenHeight) {
+    public PipePair(int screenHeight, int lastRandomYPosition) {
         this.screenHeight = screenHeight;
         this.verticalGap = screenHeight / 7 + 20;
         this.id = count.incrementAndGet();
-        int randomY = getRandomYPosition();
+        this.maxRandomYOffset = screenHeight / 2;
+        this.randomY = getRandomYPosition(lastRandomYPosition);
         this.pipeDrawableDown = new PipeDrawable(Direction.DOWN, randomY - PipeDrawable.TEXTURE_HEIGHT - PIPE_GAP / 2);
         this.pipeDrawableUp = new PipeDrawable(Direction.UP, randomY + PIPE_GAP / 2);
     }
@@ -39,9 +43,11 @@ public class PipePair {
         this.pipeDrawableUp.setX(x);
     }
 
-    private int getRandomYPosition() {
+    private int getRandomYPosition(int lastRandomYPosition) {
         Random random = new Random();
-        return random.nextInt(verticalGap, this.screenHeight - verticalGap);
+        int up = Math.min(this.screenHeight - verticalGap, lastRandomYPosition + maxRandomYOffset);
+        int bottom = Math.max(verticalGap, lastRandomYPosition - maxRandomYOffset);
+        return random.nextInt(bottom, up);
     }
 
     public boolean isOver(float x1, float x2, float y1, float y2) {
@@ -58,6 +64,10 @@ public class PipePair {
 
     public static void resetCount() {
         count = new AtomicInteger(0);
+    }
+
+    public int getRandomYPosition() {
+        return this.randomY;
     }
 
 }
