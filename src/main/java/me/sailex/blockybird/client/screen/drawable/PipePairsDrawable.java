@@ -27,7 +27,6 @@ public class PipePairsDrawable implements Drawable {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         updateDrawables();
-        updatePositions();
         renderDrawables(context);
     }
 
@@ -54,7 +53,7 @@ public class PipePairsDrawable implements Drawable {
         }
     }
 
-    private void updatePositions() {
+    public void updatePositions() {
         for (PipePair pipePair : pipePairs) {
             pipePair.updatePosition(pipePair.getX() - PIPE_HORIZONTAL_SPEED);
         }

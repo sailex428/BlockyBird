@@ -16,9 +16,11 @@ public class BlockyBirdScreen extends Screen {
     private PipePairsDrawable pipePairs;
     private PointsDrawable points;
     private PipePair next;
+    private boolean isGameOver;
 
     public BlockyBirdScreen() {
         super(Text.of("BlockyBird"));
+        isGameOver = false;
     }
 
     @Override
@@ -39,11 +41,15 @@ public class BlockyBirdScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
         checkGameOver();
         updatePoints();
+
+        if (!isGameOver) {
+            pipePairs.updatePositions();
+        }
     }
 
     private void checkGameOver() {
         if (isBirdOutOfScreen() || isBirdTouchingPipe()) {
-            this.client.setScreen(null);
+            isGameOver = true;
         }
     }
 
@@ -84,14 +90,19 @@ public class BlockyBirdScreen extends Screen {
 
     @Override
     public boolean mouseClicked(Click click, boolean doubled) {
-        return bird.mouseClicked();
+        if (!isGameOver) {
+            return bird.mouseClicked();
+        }
+        return false;
     }
 
     @Override
     public boolean keyPressed(KeyInput input) {
-        super.keyPressed(input);
-        if (input.isEnterOrSpace()) {
+        if (input.isEnterOrSpace() && !isGameOver) {
             bird.mouseClicked();
+            return true;
+        } else if (input.isEscape()) {
+            this.client.setScreen(null);
             return true;
         }
         return false;
