@@ -1,0 +1,27 @@
+{
+  "die": {
+    "sounds": [
+      "blocky-bird:die"
+    ]
+  },
+  "hit": {
+    "sounds": [
+      "blocky-bird:hit"
+    ]
+  },
+  "point": {
+    "sounds": [
+      "blocky-bird:point"
+    ]
+  },
+  "swoosh": {
+    "sounds": [
+      "blocky-bird:swoosh"
+    ]
+  },
+  "wing": {
+    "sounds": [
+      "blocky-bird:wing"
+    ]
+  }
+}

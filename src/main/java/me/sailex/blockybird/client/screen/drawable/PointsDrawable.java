@@ -38,4 +38,8 @@ public class PointsDrawable implements Drawable {
             );
         }
     }
+
+    public int getPointCount() {
+        return points;
+    }
 }

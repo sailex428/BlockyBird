@@ -4,6 +4,7 @@ import me.sailex.blockybird.client.screen.drawable.BirdDrawable;
 import me.sailex.blockybird.client.screen.drawable.PipeDrawable;
 import me.sailex.blockybird.client.screen.drawable.PipePairsDrawable;
 import me.sailex.blockybird.client.screen.drawable.PointsDrawable;
+import me.sailex.blockybird.client.sound.BlockyBirdSounds;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -34,6 +35,7 @@ public class BlockyBirdScreen extends Screen {
         addDrawable(pipePairs);
         addDrawable(points);
         PipePair.resetCount();
+        BlockyBirdSounds.playSound(BlockyBirdSounds.SWOOSH);
     }
 
     @Override
@@ -48,8 +50,15 @@ public class BlockyBirdScreen extends Screen {
     }
 
     private void checkGameOver() {
-        if (isBirdOutOfScreen() || isBirdTouchingPipe()) {
-            isGameOver = true;
+        if (!isGameOver) {
+            if (isBirdOutOfScreen()) {
+                isGameOver = true;
+            }
+            if (isBirdTouchingPipe()) {
+                isGameOver = true;
+                BlockyBirdSounds.playSound(BlockyBirdSounds.HIT);
+                BlockyBirdSounds.playSound(BlockyBirdSounds.DIE);
+            }
         }
     }
 
@@ -70,7 +79,11 @@ public class BlockyBirdScreen extends Screen {
     private void updatePoints() {
         if (this.next == null) {
             this.next = getNextPipePair();
-        } else if (this.next.getX() < (width / 2 - PipeDrawable.TEXTURE_WIDTH)) {
+        } else if (
+            this.next.getX() < (width / 2 - PipeDrawable.TEXTURE_WIDTH) &&
+            next.getId() > points.getPointCount()
+        ) {
+            BlockyBirdSounds.playSound(BlockyBirdSounds.POINT);
             points.updatePoints(next.getId());
             this.next = getNextPipePair();
         }
@@ -90,26 +103,28 @@ public class BlockyBirdScreen extends Screen {
 
     @Override
     public boolean mouseClicked(Click click, boolean doubled) {
-        if (!isGameOver) {
-            return bird.mouseClicked();
-        }
-        return false;
+        return handleClick();
     }
 
     @Override
     public boolean keyPressed(KeyInput input) {
         if (input.isEnterOrSpace()) {
-            if (isGameOver) {
-                this.client.send(() -> client.setScreen(new BlockyBirdScreen()));
-            } else {
-                bird.mouseClicked();
-            }
-            return true;
+            return handleClick();
         } else if (input.isEscape()) {
             this.client.setScreen(null);
             return true;
         }
         return false;
+    }
+
+    private boolean handleClick() {
+        if (isGameOver) {
+            this.client.send(() -> client.setScreen(new BlockyBirdScreen()));
+        } else {
+            BlockyBirdSounds.playSound(BlockyBirdSounds.WING);
+            bird.mouseClicked();
+        }
+        return true;
     }
 
     @Override
