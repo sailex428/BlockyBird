@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PipePair {
 
     private static AtomicInteger count = new AtomicInteger(0);
-    private static final int PIPE_GAP = 70;
+    private static final int PIPE_GAP = 75;
 
     private final PipeDrawable pipeDrawableDown;
     private final PipeDrawable pipeDrawableUp;

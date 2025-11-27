@@ -10,15 +10,13 @@ import static me.sailex.blockybird.client.BlockyBirdClient.MOD_ID;
 
 public class BirdDrawable implements Drawable {
 
-    private final int screenWidth;
-
     private static final Identifier BIRD_UPFLAP = Identifier.of(MOD_ID, "yellowbird-upflap.png");
     private static final Identifier BIRD_MIDFLAP = Identifier.of(MOD_ID, "yellowbird-midflap.png");
     private static final Identifier BIRD_DOWNFLAP = Identifier.of(MOD_ID, "yellowbird-downflap.png");
     public static final int BIRD_TEXTURE_HEIGHT = 24;
     public static final int BIRD_TEXTURE_WIDTH = 34;
 
-    private static final float JUMP_SPEED = 3.5f;
+    private static final float JUMP_SPEED = 3.7f;
     private static final float FALLING_CONSTANT = 0.20f;
     private static final int BIRD_ANIMATION_SPEED = 5;
     private static final float BIRD_TOP_ROTATION = (float) Math.toRadians(-25);
@@ -34,9 +32,8 @@ public class BirdDrawable implements Drawable {
     private final Identifier[] birdTypes = { BIRD_UPFLAP, BIRD_MIDFLAP, BIRD_DOWNFLAP };
 
     public BirdDrawable(int width, int height) {
-        this.screenWidth = width;
         this.birdPositionY = (float) height / 2;
-        this.birdPositionX = (float) (this.screenWidth - BIRD_TEXTURE_WIDTH) / 2;
+        this.birdPositionX = (float) (width - BIRD_TEXTURE_WIDTH) / 2;
     }
 
     @Override

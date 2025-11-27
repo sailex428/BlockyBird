@@ -51,7 +51,7 @@ public class BlockyBirdScreen extends Screen {
         return this.pipePairs.getPipePairs().stream().anyMatch(pipePair -> pipePair.isOver(
                 bird.getPositionX(),
                 bird.getPositionX() + (float) BirdDrawable.BIRD_TEXTURE_WIDTH / 2,
-                bird.getPositionY() - 10,
+                bird.getPositionY() - 13,
                 bird.getPositionY() + (float) BirdDrawable.BIRD_TEXTURE_HEIGHT / 2
                 )
         );
