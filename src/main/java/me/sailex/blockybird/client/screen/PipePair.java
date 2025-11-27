@@ -44,8 +44,8 @@ public class PipePair {
         return random.nextInt(verticalGap, this.screenHeight - verticalGap);
     }
 
-    public boolean isOver(float x1, float y1, float x2, float y2) {
-        return pipeDrawableDown.isOver(x1, y1, x2, y2) || pipeDrawableUp.isOver(x1, y1, x2, y2);
+    public boolean isOver(float x1, float x2, float y1, float y2) {
+        return pipeDrawableDown.isOver(x1, x2, y1, y2) || pipeDrawableUp.isOver(x1, x2, y1, y2);
     }
 
     public int getX() {

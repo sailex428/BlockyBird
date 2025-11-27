@@ -43,7 +43,7 @@ public class PipeDrawable {
         matrices.popMatrix();
     }
 
-    public boolean isOver(float x1, float y1, float x2, float y2) {
+    public boolean isOver(float x1, float x2, float y1, float y2) {
         return x + TEXTURE_WIDTH >= x1 && x <= x2 &&
                 y <= y2 && y + TEXTURE_HEIGHT >= y1;
     }
