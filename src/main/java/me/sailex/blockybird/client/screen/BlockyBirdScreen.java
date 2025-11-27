@@ -98,8 +98,12 @@ public class BlockyBirdScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyInput input) {
-        if (input.isEnterOrSpace() && !isGameOver) {
-            bird.mouseClicked();
+        if (input.isEnterOrSpace()) {
+            if (isGameOver) {
+                this.client.send(() -> client.setScreen(new BlockyBirdScreen()));
+            } else {
+                bird.mouseClicked();
+            }
             return true;
         } else if (input.isEscape()) {
             this.client.setScreen(null);
