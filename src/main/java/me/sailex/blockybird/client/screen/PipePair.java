@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PipePair {
 
     private static AtomicInteger count = new AtomicInteger(0);
-    private static final int PIPE_GAP = 75;
+    private static final int PIPE_GAP = 80;
 
     private final PipeDrawable pipeDrawableDown;
     private final PipeDrawable pipeDrawableUp;
@@ -26,7 +26,7 @@ public class PipePair {
         this.screenHeight = screenHeight;
         this.verticalGap = screenHeight / 7 + 20;
         this.id = count.incrementAndGet();
-        this.maxRandomYOffset = screenHeight / 2;
+        this.maxRandomYOffset = screenHeight / 7;
         this.randomY = getRandomYPosition(lastRandomYPosition);
         this.pipeDrawableDown = new PipeDrawable(Direction.DOWN, randomY - PipeDrawable.TEXTURE_HEIGHT - PIPE_GAP / 2);
         this.pipeDrawableUp = new PipeDrawable(Direction.UP, randomY + PIPE_GAP / 2);
