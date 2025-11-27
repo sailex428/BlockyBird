@@ -18,7 +18,7 @@ public class BirdDrawable implements Drawable {
     public static final int BIRD_TEXTURE_HEIGHT = 24;
     public static final int BIRD_TEXTURE_WIDTH = 34;
 
-    private static final float JUMP_SPEED = 3f;
+    private static final float JUMP_SPEED = 3.5f;
     private static final float FALLING_CONSTANT = 0.20f;
     private static final int BIRD_ANIMATION_SPEED = 5;
     private static final float BIRD_TOP_ROTATION = (float) Math.toRadians(-25);
