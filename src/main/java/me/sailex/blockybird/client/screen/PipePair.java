@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PipePair {
 
     private static AtomicInteger count = new AtomicInteger(0);
-    private static final int PIPE_GAP = 80;
+    private static final int PIPE_GAP = 90;
 
     private final PipeDrawable pipeDrawableDown;
     private final PipeDrawable pipeDrawableUp;
@@ -20,13 +20,13 @@ public class PipePair {
     private final int randomY;
     private final int maxRandomYOffset;
 
-    private int x = 0;
+    private float x = 0;
 
     public PipePair(int screenHeight, int lastRandomYPosition) {
         this.screenHeight = screenHeight;
         this.verticalGap = screenHeight / 7 + 20;
         this.id = count.incrementAndGet();
-        this.maxRandomYOffset = screenHeight / 7;
+        this.maxRandomYOffset = screenHeight / 3;
         this.randomY = getRandomYPosition(lastRandomYPosition);
         this.pipeDrawableDown = new PipeDrawable(Direction.DOWN, randomY - PipeDrawable.TEXTURE_HEIGHT - PIPE_GAP / 2);
         this.pipeDrawableUp = new PipeDrawable(Direction.UP, randomY + PIPE_GAP / 2);
@@ -37,7 +37,7 @@ public class PipePair {
         this.pipeDrawableUp.render(context);
     }
 
-    public void updatePosition(int x) {
+    public void updatePosition(float x) {
         this.x = x;
         this.pipeDrawableDown.setX(x);
         this.pipeDrawableUp.setX(x);
@@ -54,7 +54,7 @@ public class PipePair {
         return pipeDrawableDown.isOver(x1, x2, y1, y2) || pipeDrawableUp.isOver(x1, x2, y1, y2);
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 

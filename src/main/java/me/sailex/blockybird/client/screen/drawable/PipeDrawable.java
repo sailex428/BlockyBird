@@ -15,7 +15,7 @@ public class PipeDrawable {
     public static final int TEXTURE_HEIGHT = 320;
     private final Direction direction;
 
-    private int x = 0;
+    private float x = 0;
     private final int y;
 
     public PipeDrawable(Direction direction, int y) {
@@ -48,7 +48,7 @@ public class PipeDrawable {
                 y <= y2 && y + TEXTURE_HEIGHT >= y1;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 

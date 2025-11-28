@@ -45,7 +45,7 @@ public class BlockyBirdScreen extends Screen {
         updatePoints();
 
         if (!isGameOver) {
-            pipePairs.updatePositions();
+            pipePairs.updatePositions(delta);
         }
     }
 
@@ -67,9 +67,7 @@ public class BlockyBirdScreen extends Screen {
                 bird.getPositionX(),
                 bird.getPositionX() + (float) BirdDrawable.BIRD_TEXTURE_WIDTH / 2,
                 bird.getPositionY() - 13,
-                bird.getPositionY() + (float) BirdDrawable.BIRD_TEXTURE_HEIGHT / 2
-                )
-        );
+                bird.getPositionY() + (float) BirdDrawable.BIRD_TEXTURE_HEIGHT / 2));
     }
 
     private boolean isBirdOutOfScreen() {
@@ -79,10 +77,8 @@ public class BlockyBirdScreen extends Screen {
     private void updatePoints() {
         if (this.next == null) {
             this.next = getNextPipePair();
-        } else if (
-            this.next.getX() < (width / 2 - PipeDrawable.TEXTURE_WIDTH) &&
-            next.getId() > points.getPointCount()
-        ) {
+        } else if (this.next.getX() < (width / 2 - PipeDrawable.TEXTURE_WIDTH) &&
+                next.getId() > points.getPointCount()) {
             BlockyBirdSounds.playSound(BlockyBirdSounds.POINT);
             points.updatePoints(next.getId());
             this.next = getNextPipePair();
@@ -93,8 +89,7 @@ public class BlockyBirdScreen extends Screen {
         PipePair next = this.pipePairs.getPipePairs().getLast();
         for (PipePair pipePair : this.pipePairs.getPipePairs()) {
             if (pipePair.getX() < next.getX() &&
-                pipePair.getX() > width / 2
-            ) {
+                    pipePair.getX() > width / 2) {
                 next = pipePair;
             }
         }

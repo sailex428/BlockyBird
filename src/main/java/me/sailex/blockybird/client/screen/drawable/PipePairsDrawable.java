@@ -10,7 +10,7 @@ import java.util.Deque;
 public class PipePairsDrawable implements Drawable {
 
     private static final int PIPE_HORIZONTAL_GAP = 120;
-    private static final int PIPE_HORIZONTAL_SPEED = 2;
+    private static final int PIPE_HORIZONTAL_SPEED = 6;
     private final Deque<PipePair> pipePairs;
 
     private final int startX;
@@ -38,7 +38,7 @@ public class PipePairsDrawable implements Drawable {
 
         PipePair last = pipePairs.peekLast();
         while (pipePairs.isEmpty() || last.getX() <= screenWidth) {
-            int x;
+            float x;
             int lastRandomYPosition;
             if (pipePairs.isEmpty()) {
                 x = startX;
@@ -53,9 +53,9 @@ public class PipePairsDrawable implements Drawable {
         }
     }
 
-    public void updatePositions() {
+    public void updatePositions(float deltaTicks) {
         for (PipePair pipePair : pipePairs) {
-            pipePair.updatePosition(pipePair.getX() - PIPE_HORIZONTAL_SPEED);
+            pipePair.updatePosition(pipePair.getX() - PIPE_HORIZONTAL_SPEED * deltaTicks);
         }
     }
 
