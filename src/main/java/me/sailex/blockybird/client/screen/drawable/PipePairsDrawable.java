@@ -10,7 +10,7 @@ import java.util.Deque;
 public class PipePairsDrawable implements Drawable {
 
     private static final int PIPE_HORIZONTAL_GAP = 120;
-    private static final int PIPE_HORIZONTAL_SPEED = 6;
+    private static final int PIPE_HORIZONTAL_SPEED = 5;
     private final Deque<PipePair> pipePairs;
 
     private final int startX;

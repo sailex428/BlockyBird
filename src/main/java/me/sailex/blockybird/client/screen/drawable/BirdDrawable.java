@@ -16,8 +16,8 @@ public class BirdDrawable implements Drawable {
     public static final int BIRD_TEXTURE_HEIGHT = 24;
     public static final int BIRD_TEXTURE_WIDTH = 34;
 
-    private static final float JUMP_SPEED = 10f;
-    private static final float FALLING_CONSTANT = 1.5f;
+    private static final float JUMP_SPEED = 12f;
+    private static final float FALLING_CONSTANT = 2f;
     private static final float BIRD_ANIMATION_SPEED = 1.66f;
     private static final float BIRD_TOP_ROTATION = (float) Math.toRadians(-25);
     private static final float BIRD_BOTTOM_ROTATION = (float) Math.toRadians(90);
@@ -59,7 +59,7 @@ public class BirdDrawable implements Drawable {
         matrices.pushMatrix();
         matrices.translate(birdPositionX, birdPositionY);
 
-        float angle = Math.min(BIRD_BOTTOM_ROTATION, Math.max(-verticalSpeed * deltaTicks - 2, BIRD_TOP_ROTATION));
+        float angle = Math.min(BIRD_BOTTOM_ROTATION, Math.max((-verticalSpeed / 6) - 1.7f, BIRD_TOP_ROTATION));
         matrices.rotate(angle);
         matrices.translate(-((float) BIRD_TEXTURE_WIDTH / 2), -((float) BIRD_TEXTURE_HEIGHT / 2));
 

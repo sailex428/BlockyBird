@@ -67,7 +67,7 @@ public class BlockyBirdScreen extends Screen {
                 bird.getPositionX(),
                 bird.getPositionX() + (float) BirdDrawable.BIRD_TEXTURE_WIDTH / 2,
                 bird.getPositionY() - 13,
-                bird.getPositionY() + (float) BirdDrawable.BIRD_TEXTURE_HEIGHT / 2));
+                bird.getPositionY() + (float) BirdDrawable.BIRD_TEXTURE_HEIGHT / 2 + 5));
     }
 
     private boolean isBirdOutOfScreen() {
